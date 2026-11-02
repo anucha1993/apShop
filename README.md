@@ -22,20 +22,21 @@ npm run lint       # ตรวจ TypeScript
 
 ## Deploy ลง Plesk (Node.js extension)
 
-```bash
-npm run package:plesk     # build + สร้าง deploy/apshop-plesk.zip (มี server.js และ node_modules ครบ)
-```
+`server.js` ที่ root ของโปรเจกต์คือ Startup File สำหรับ Plesk — มันรันเว็บจาก build ในโฟลเดอร์ `.next`
 
-1. **File Manager** → เข้าโฟลเดอร์ Application Root (เช่น `/apShop.thaidatacorp.com`) → ลบไฟล์เดิมออก (เก็บ `.well-known` ไว้ถ้ามี) → อัปโหลด `apshop-plesk.zip` → Extract
-2. หน้า **Node.js** ของโดเมน ตั้งค่า:
+1. อัปโหลด source code (ไม่ต้องมี `node_modules`, `.next`, `.git`) ลง Application Root เช่น `/apShop.thaidatacorp.com` แล้วแตกไฟล์ให้ `server.js` อยู่ชั้นบนสุด
+2. หน้า **Node.js** ของโดเมน:
    - **Application Startup File:** `server.js`
-   - **Document Root:** `/apShop.thaidatacorp.com/public` (ห้ามชี้ไปที่ root ของแอป)
    - **Application Mode:** `production`
-   - **ไม่ต้อง** กด NPM install / Auto-configure / Run script build — ไฟล์ build มาครบแล้ว
-3. กด **Restart App** แล้วเปิด URL
-4. ต้องเปิด **SSL (Let's Encrypt)** — ระบบสมาชิกใช้ Web Crypto ซึ่งทำงานบน HTTPS เท่านั้น
+   - **Document Root** (Hosting Settings): `/apShop.thaidatacorp.com/public`
+3. กด **NPM install** → รอจนเสร็จ
+4. กด **Run script** → พิมพ์ `build` → รอจนขึ้น `✓ Generating static pages` (เซิร์ฟเวอร์ต้องต่ออินเทอร์เน็ตได้ เพื่อโหลด Google Fonts)
+5. กด **Restart App** แล้วเปิด URL
+6. ต้องเปิด **SSL (Let's Encrypt)** — ระบบสมาชิกใช้ Web Crypto ซึ่งทำงานบน HTTPS เท่านั้น
 
-อัปเดตเวอร์ชันใหม่: รัน `npm run package:plesk` อีกครั้ง → อัปโหลด/แตกไฟล์ทับ → Restart App
+อัปเดตเวอร์ชันใหม่: อัปโหลดไฟล์ที่แก้ทับ → Run script `build` → Restart App
+
+> ทางเลือก: ถ้าเซิร์ฟเวอร์ build ไม่ไหว (RAM น้อย) ใช้ `npm run package:plesk` บนเครื่องตัวเอง จะได้ `deploy/apshop-plesk.zip` ที่ build เสร็จแล้ว อัปโหลดแตกไฟล์แล้ว Restart ได้เลยโดยไม่ต้อง NPM install / build
 
 ## ฟีเจอร์
 
