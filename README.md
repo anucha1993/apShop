@@ -20,6 +20,23 @@ npm run lint       # ตรวจ TypeScript
 
 > รูปสินค้าโหลดจาก images.unsplash.com และฟอนต์จาก Google Fonts จึงต้องต่ออินเทอร์เน็ตตอน dev/build
 
+## Deploy ลง Plesk (Node.js extension)
+
+```bash
+npm run package:plesk     # build + สร้าง deploy/apshop-plesk.zip (มี server.js และ node_modules ครบ)
+```
+
+1. **File Manager** → เข้าโฟลเดอร์ Application Root (เช่น `/apShop.thaidatacorp.com`) → ลบไฟล์เดิมออก (เก็บ `.well-known` ไว้ถ้ามี) → อัปโหลด `apshop-plesk.zip` → Extract
+2. หน้า **Node.js** ของโดเมน ตั้งค่า:
+   - **Application Startup File:** `server.js`
+   - **Document Root:** `/apShop.thaidatacorp.com/public` (ห้ามชี้ไปที่ root ของแอป)
+   - **Application Mode:** `production`
+   - **ไม่ต้อง** กด NPM install / Auto-configure / Run script build — ไฟล์ build มาครบแล้ว
+3. กด **Restart App** แล้วเปิด URL
+4. ต้องเปิด **SSL (Let's Encrypt)** — ระบบสมาชิกใช้ Web Crypto ซึ่งทำงานบน HTTPS เท่านั้น
+
+อัปเดตเวอร์ชันใหม่: รัน `npm run package:plesk` อีกครั้ง → อัปโหลด/แตกไฟล์ทับ → Restart App
+
 ## ฟีเจอร์
 
 | ส่วน | รายละเอียด |

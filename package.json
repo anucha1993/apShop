@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "package:plesk": "next build && node scripts/package-plesk.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.544.0",
