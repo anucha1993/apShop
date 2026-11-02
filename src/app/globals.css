@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), var(--font-thai), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-latin), var(--font-thai), ui-serif, Georgia, serif;
+
+  --color-ink: #141414;
+  --color-muted: #6f6b66;
+  --color-line: #e7e5e2;
+
+  --animate-fade-in: fade-in 0.25s ease-out both;
+  --animate-fade-up: fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-slide-up: slide-up 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-hero-zoom: hero-zoom 8s ease-out both;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(24px); }
+  }
+  @keyframes hero-zoom {
+    from { transform: scale(1.08); }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+  }
+  :focus-visible {
+    @apply outline-1 outline-offset-2 outline-ink;
+  }
+}
+
+@utility container-page {
+  @apply mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-10;
+}
+
+@utility section-title {
+  @apply font-display text-2xl font-medium sm:text-3xl;
+}
+
+@layer components {
+  .btn-primary,
+  .btn-secondary,
+  .btn-outline-light {
+    @apply inline-flex h-12 items-center justify-center gap-2 px-8 text-xs font-medium uppercase tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-40;
+  }
+  .btn-primary {
+    @apply bg-ink text-white hover:bg-ink/85;
+  }
+  .btn-secondary {
+    @apply border border-ink bg-white text-ink hover:bg-ink hover:text-white disabled:hover:bg-white disabled:hover:text-ink;
+  }
+  .btn-outline-light {
+    @apply border border-white text-white hover:bg-white hover:text-ink;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
